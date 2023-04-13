@@ -18,10 +18,23 @@ function transform( arr ) {
   return arr.map((item,index)=>{
       
     if(item === '--discard-next'){
-      return arr.splice(index , 2)
+      if(!arr[index++]){
+        arr.splice(index , 1)
+      }
+      else{
+        return arr.splice(index , 2)
+      }
+      
+      
     }
     if(item === '--discard-prev'){
-      return arr.splice(--index , 2)
+      if(!arr[index--]){
+        arr.splice(index , 1)
+      }
+      else{
+        return arr.splice(--index , 2)
+      }
+     
     }
     if(item === '--double-next'){
       return item = arr[++index]
