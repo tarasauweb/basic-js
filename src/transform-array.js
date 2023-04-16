@@ -15,38 +15,47 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function transform( arr ) {
   if (!Array.isArray(arr)) throw new Error(`'arr' parameter must be an instance of the Array!`);
-  return arr.map((item,index)=>{
-      
-    if(item === '--discard-next'){
-      if(!arr[index++]){
-        arr.splice(index , 1)
-      }
-      else{
-        return arr.splice(index , 2)
-      }
-      
-      
-    }
+  let newArr = [];
+  arr.map((item,index)=>{
+    newArr.push(item)
     if(item === '--discard-prev'){
-      if(!arr[index--]){
-        arr.splice(index , 1)
+      if(newArr[index-1]){
+        newArr.splice(index-1,2)
       }
       else{
-        return arr.splice(--index , 2)
+        newArr.splice(index,1)
       }
-     
-    }
-    if(item === '--double-next'){
-      return item = arr[++index]
     }
     if(item === '--double-prev'){
-      return item = arr[--index]
+      if(arr[index-1]){
+        newArr.splice(index,1)
+        newArr.push(arr[index-1])
+      }
+      else{
+        newArr.splice(index,1)
+      }
     }
-    else{
-      return item
+    if(item === '--double-next'){
+      if(arr[index+1]){
+        newArr.splice(index,1)
+        newArr.push(arr[index+1])
+      }
+      else{
+        newArr.splice(index,1)
+      }
     }
-    
+    if(item === '--discard-next'){
+      if(arr[index+1]){
+        arr.splice(index,2)
+        newArr.splice(index,1)
+      }else{
+        arr.splice(index,1);
+        newArr.splice(index,1);
+      }
+    }
   })
+   console.log(newArr)
+   return newArr
 }
 
 module.exports = {

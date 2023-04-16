@@ -25,10 +25,14 @@ class VigenereCipheringMachine {
     this.alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   }
   encrypt(str , key) {
-    if (!str || !key) throw new Error ('Incorrect arguments!')
+    if (!str || !key) throw new Error ('Incorrect arguments!');
+    str = str.toUpperCase();
+    key = key.toUpperCase();
   }
   decrypt(str , key) {
-    if (!str || !key) throw new Error ('Incorrect arguments!')
+    if (!str || !key) throw new Error ('Incorrect arguments!');
+    str = str.toUpperCase();
+    key = key.toUpperCase();
   }
 }
 
